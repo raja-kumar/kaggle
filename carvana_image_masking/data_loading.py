@@ -6,29 +6,27 @@ from PIL import Image
 import tensorflow as tf
 import os
 
-train_image_dir = "/Users/rajakumar/Desktop/DL_Learnings/kaggle/carvana_image_masking/train"
-train_mask_dir = "/Users/rajakumar/Desktop/DL_Learnings/kaggle/carvana_image_masking/train_masks"
+def prepare_data(train_image_dir, train_mask_dir):
+	#train_image_dir = "/Users/rajakumar/Desktop/DL_Learnings/kaggle/carvana_image_masking/train"
+	#train_mask_dir = "/Users/rajakumar/Desktop/DL_Learnings/kaggle/carvana_image_masking/train_masks"
+	image_names = os.listdir(train_image_dir)
+	mask_names = os.listdir(train_mask_dir)
 
-image_names = os.listdir(train_image_dir)
-mask_names = os.listdir(train_mask_dir)
+	print("no. of training images: ", len(image_names))
+	print("no. of training masks: ", len(mask_names))
+	image_names.sort()
+	mask_names.sort()
 
-print("no. of training images: ", len(image_names))
-print("no. of training masks: ", len(mask_names))
+	image_path = []
+	mask_path = []
+	for i in image_names:
+		path = os.path.join(train_image_dir, i)
+		image_path.append(path)
+	for j in mask_names:
+		path = os.path.join(train_mask_dir, j)
+		mask_path.append(path)
 
-image_names.sort()
-mask_names.sort()
-
-image_path = []
-mask_path = []
-
-for i in image_names:
-	path = os.path.join(train_image_dir, i)
-	image_path.append(path)
-
-for j in mask_names:
-	path = os.path.join(train_mask_dir, j)
-	mask_path.append(path)
-
+	return image_path, mask_path
 
 def load_data(data_path):
 
@@ -46,15 +44,22 @@ def load_data(data_path):
 
 	return images
 
-x_train = load_data(image_path[:4001])
-x_test = load_data(image_path[4001:])
-y_train = load_data(mask_path[:4001])
-y_test = load_data(mask_path[4001:])
+def load_image(image_name):
+	image = Image.open(image_name)
+	image = image.resize((256,256))
+	image = np.array(image)
 
-print('training size: ', x_train.size)
-print('test size: ', x_test.size)
+	return image
 
-plt.imshow(x_train[0])
+#x_train = load_data(image_path[:4001])
+#x_test = load_data(image_path[4001:])
+#y_train = load_data(mask_path[:4001])
+#y_test = load_data(mask_path[4001:])
+
+#print('input size: ', x_test.shape)
+#print('output size: ', y_test.shape)
+
+'''plt.imshow(x_train[0])
 plt.show()
 plt.imshow(y_train[0])
-plt.show()
+plt.show()'''
