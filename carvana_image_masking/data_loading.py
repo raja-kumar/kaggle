@@ -7,8 +7,6 @@ import tensorflow as tf
 import os
 
 def prepare_data(train_image_dir, train_mask_dir):
-	#train_image_dir = "/Users/rajakumar/Desktop/DL_Learnings/kaggle/carvana_image_masking/train"
-	#train_mask_dir = "/Users/rajakumar/Desktop/DL_Learnings/kaggle/carvana_image_masking/train_masks"
 	image_names = os.listdir(train_image_dir)
 	mask_names = os.listdir(train_mask_dir)
 
@@ -50,16 +48,3 @@ def load_image(image_name):
 	image = np.array(image)
 
 	return image
-
-#x_train = load_data(image_path[:4001])
-#x_test = load_data(image_path[4001:])
-#y_train = load_data(mask_path[:4001])
-#y_test = load_data(mask_path[4001:])
-
-#print('input size: ', x_test.shape)
-#print('output size: ', y_test.shape)
-
-'''plt.imshow(x_train[0])
-plt.show()
-plt.imshow(y_train[0])
-plt.show()'''

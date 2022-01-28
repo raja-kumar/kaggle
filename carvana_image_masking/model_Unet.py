@@ -37,11 +37,6 @@ def Unet_model(output_channels):
 		kernel_size=3, strides=2, padding='same')
 	x = last_layer(x)
 
-	#final_layer = tf.keras.layers.Reshape((256,256))
-
-	#X = final_layer(x)
-
-	#x = x.reshape(256,256)
 	final_layer = tf.keras.layers.Conv2D(1,(1,1), activation='sigmoid')
 
 	x = final_layer(x)
@@ -89,13 +84,3 @@ def Unet_model_V2(input_shape):
     conv10 = Conv2D(1, (1, 1), activation = 'sigmoid')(conv9)
     
     return Model(input_layer, conv10)
-
-
-'''output_classes = 2
-
-model = Unet_model(output_classes)
-model.compile(optimizer='Adam', loss='binary_crossentropy', metrics=['accuray'])
-
-#tf.keras.utils.plot_model(model,show_shapes=True)
-
-print(model.summary())'''
